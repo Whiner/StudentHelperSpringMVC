@@ -15,17 +15,19 @@ import java.util.Map;
 
 @Controller
 public class MainController {
-    @Autowired
-    StudentRepository repository;
+    private StudentRepository repository;
 
-    @GetMapping("/main")
-    public String main(@RequestParam(name="name", required=false, defaultValue="World") String name,
-                           Map<String, Object> model) {
-        model.put("name", name);
+    @Autowired
+    public MainController(StudentRepository repository) {
+        this.repository = repository;
+    }
+
+    @GetMapping("/")
+    public String main(Map<String, Object> model) {
         return "main";
     }
 
-    @GetMapping
+    @GetMapping("/general")
     public String general(Map<String, Object> model){
         Iterable<StudentWork> all = repository.findAll();
 
@@ -33,7 +35,7 @@ public class MainController {
         return "general";
     }
 
-    @PostMapping
+    @PostMapping("/general")
     public String add(@RequestParam String discipline, @RequestParam Integer number, Map<String, Object> model){
         final StudentWork studentWork = new StudentWork(discipline, number);
         repository.save(studentWork);
