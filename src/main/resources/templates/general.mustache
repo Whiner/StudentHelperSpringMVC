@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Test</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+</head>
+<body>
+<div>
+    <form method="post" action="main">
+        <input placeholder="Дисциплина" type="text" name="discipline">
+        <input placeholder="Номер" type="number" name="number">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<div>
+    <form method="post" action="filter">
+        <input type="text" placeholder="Фильтр" name="filter">
+        <button type="submit">Поиск</button>
+    </form>
+</div>
+<div>
+    <div>Список студработ</div>
+    {{#studentWorks}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{discipline}}</span>
+        <i>{{number}}</i>
+    </div>
+    {{/studentWorks}}
+</div>
+</body>
+</html>
