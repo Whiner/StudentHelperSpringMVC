@@ -1,8 +1,10 @@
 package com.control;
 
 import com.database.StudentWork;
+import com.database.User;
 import com.database.repos.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,36 +25,32 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String main(Map<String, Object> model) {
+    public String main() {
         return "main";
     }
 
     @GetMapping("/general")
-    public String general(Map<String, Object> model){
-        Iterable<StudentWork> all = repository.findAll();
-
-        model.put("studentWorks", all);
+    public String general(@RequestParam(required = false) String filter, Model model){
+        Iterable<StudentWork> all;
+        if(filter != null && !filter.isEmpty()){
+            all = repository.findByDiscipline(filter);
+        } else {
+            all = repository.findAll();
+        }
+        model.addAttribute("studentWorks", all);
         return "general";
     }
 
     @PostMapping("/general")
-    public String add(@RequestParam String discipline, @RequestParam Integer number, Map<String, Object> model){
-        final StudentWork studentWork = new StudentWork(discipline, number);
+    public String add(
+            @AuthenticationPrincipal User user,
+            @RequestParam String discipline,
+            @RequestParam Integer number, Model model){
+        StudentWork studentWork = new StudentWork(discipline, number, user);
         repository.save(studentWork);
         Iterable<StudentWork> all = repository.findAll();
-        model.put("studentWorks", all);
+        model.addAttribute("studentWorks", all);
         return "general";
     }
 
-    @PostMapping("/filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model){ // тут параметр фильтр должен быть как и в html name
-        Iterable<StudentWork> studentWorkList;
-        if(filter != null && !filter.isEmpty()){
-            studentWorkList = repository.findByDiscipline(filter);
-        } else {
-            studentWorkList = repository.findAll();
-        }
-        model.put("studentWorks", studentWorkList); //тут должно быть одинаково постоянно
-        return "general";
-    }
 }

@@ -1,9 +1,6 @@
 package com.database;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class StudentWork {
@@ -18,6 +15,10 @@ public class StudentWork {
     private GregorianCalendar deliveryDate;
     private Status status;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User owner;
+
     public StudentWork(){}
 
     public StudentWork(Type type, String discipline, Integer number, String theme, GregorianCalendar deliveryDate, Status status) {
@@ -29,9 +30,14 @@ public class StudentWork {
         this.status = status;
     }
 
-    public StudentWork(String discipline, Integer number) {
+    public StudentWork(String discipline, Integer number, User user) {
         this.discipline = discipline;
         this.number = number;
+        owner = user;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getTheme() {
@@ -80,5 +86,17 @@ public class StudentWork {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public String getOwnerName(){
+        return owner == null?"<unknown>":owner.getUsername();
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
