@@ -1,5 +1,6 @@
 <#import "htmlpatterns/page.ftl" as p>
-<@p.pagestruct title="Adminka">
+<@p.pagestruct title="Adminka" css="">
+    <#include "htmlpatterns/navbar.ftl"/>
     <form action="/user" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <input type="text" name="username" placeholder="Имя пользователя" value="${user.username}"/>

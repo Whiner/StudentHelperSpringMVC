@@ -1,9 +1,7 @@
 <#import "htmlpatterns/page.ftl" as p>
-<#import "htmlpatterns/account.ftl" as a>
-<@p.pagestruct title="sHelper main">
-<div>
-<@a.logout/>
-</div>
+<@p.pagestruct title="sHelper main" css="">
+
+    <#include "htmlpatterns/navbar.ftl"/>
 <b>
     <a href="/user">UserList</a>
 </b>
