@@ -1,6 +1,5 @@
 <#import "htmlpatterns/page.ftl" as p>
 <@p.pagestruct title = "User List" css="">
-    <#include "htmlpatterns/navbar.ftl"/>
     <table border="1px">
         <thead>
         <tr>

@@ -1,10 +1,6 @@
 <#import "htmlpatterns/page.ftl" as p>
 <@p.pagestruct title="sHelper main" css="">
 
-    <#include "htmlpatterns/navbar.ftl"/>
-<b>
-    <a href="/user">UserList</a>
-</b>
 <div>
     <form method="post" action="/general">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
