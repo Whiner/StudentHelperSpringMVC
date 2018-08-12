@@ -21,19 +21,13 @@ public class StudentWork {
 
     public StudentWork(){}
 
-    public StudentWork(Type type, String discipline, Integer number, String theme, GregorianCalendar deliveryDate, Status status) {
+    public StudentWork(Type type, String discipline, Integer number, String theme, Status status, User owner) {
         this.type = type;
         this.discipline = discipline;
         this.number = number;
         this.theme = theme;
-        this.deliveryDate = deliveryDate;
         this.status = status;
-    }
-
-    public StudentWork(String discipline, Integer number, User user) {
-        this.discipline = discipline;
-        this.number = number;
-        owner = user;
+        this.owner = owner;
     }
 
     public Integer getId() {
