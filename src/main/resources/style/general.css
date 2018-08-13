@@ -1,0 +1,31 @@
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 2 !important;
+        -moz-column-count: 2 !important;
+        column-count: 2 !important;
+    }
+}
+
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 3 !important;
+        -moz-column-count: 3 !important;
+        column-count: 3 !important;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 4 !important;
+        -moz-column-count: 4 !important;
+        column-count: 4 !important;
+    }
+}
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 5 !important;
+        -moz-column-count: 5 !important;
+        column-count: 5 !important;
+    }
+}
