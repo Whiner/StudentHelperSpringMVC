@@ -22,7 +22,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceHandler("/style/**")
                 .addResourceLocations("classpath:/style/");
         registry
-                .addResourceHandler("/templates/images/**")
-                .addResourceLocations("classpath:/templates/images/");
+                .addResourceHandler("/images/**")
+                .addResourceLocations("classpath:/images/");
     }
 }

@@ -7,25 +7,7 @@
     min-height: 100%;
 }
 
-.auth {
-    border-radius: 10px 10px 0 0;
-    border: #212529 1px;
-    padding-bottom: 10px;
-    width: 400px !important;
-    background-color: rgba(0, 44, 251, 0.08);
-}
 
-.auth-header {
-    border-radius: 10px 10px 0 0;
-    background-color: #212529;
-    padding: 10px;
-    text-align: center;
-}
-
-.auth-header span {
-    color: white;
-    font-size: 20px;
-}
 
 
 

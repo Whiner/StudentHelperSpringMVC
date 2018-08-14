@@ -1,5 +1,6 @@
 <#macro signform action button_text>
-<div class="auth container mt-4">
+<div class="auth container mx-auto ">
+
     <div class="row auth-header">
         <div class="col">
             <#if action == "registration">
@@ -11,7 +12,7 @@
     </div>
 
     <form action="/${action}" method="post">
-        <div class="row ">
+        <div class="row">
             <div class="form-group m-auto">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <label class="m-2"> Username
@@ -26,15 +27,20 @@
                 </label>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="m-auto">
-                <button class="btn btn-outline-success mr-2" type="submit">${button_text}</button>
-                <#if action == "login">
-                    <a href="/registration">
-                        <button type="button" class="btn btn-outline-secondary">Регистрация</button>
-                    </a>
-                </#if>
+                <button class="btn btn-outline-success" type="submit">${button_text}</button>
             </div>
+        </div>
+        <div class="row">
+            <#if action == "login">
+                <div class="m-auto">
+                    <a href="/registration">
+                        <button type="button" class="btn btn-sm btn-outline-secondary mt-2 mx-auto">Нет аккаунта?
+                        </button>
+                    </a>
+                </div>
+            </#if>
         </div>
     </form>
 
