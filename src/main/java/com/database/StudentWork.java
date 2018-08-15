@@ -1,18 +1,19 @@
 package com.database;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 public class StudentWork {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     private Type type;
     private String discipline;
     private Integer number;
     private String theme;
-    private GregorianCalendar deliveryDate;
+    private Date deliveryDate;
     private Status status;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -21,16 +22,17 @@ public class StudentWork {
 
     public StudentWork(){}
 
-    public StudentWork(Type type, String discipline, Integer number, String theme, Status status, User owner) {
+    public StudentWork(Type type, GregorianCalendar deliveryDate, String discipline, Integer number, String theme, Status status, User owner) {
         this.type = type;
         this.discipline = discipline;
         this.number = number;
         this.theme = theme;
         this.status = status;
         this.owner = owner;
+        this.deliveryDate = new Date(deliveryDate.getTime().getTime());
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -58,11 +60,11 @@ public class StudentWork {
         this.type = type;
     }
 
-    public GregorianCalendar getDeliveryDate() {
+    public Date getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(GregorianCalendar deliveryDate) {
+    public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
