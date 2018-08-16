@@ -22,7 +22,7 @@ public enum Status {
         }
     }
 
-    public static String valueToRussian(Status status) {
+    public static String toRussian(Status status) {
         switch (status) {
             case DONE:
                 return DONE_R;

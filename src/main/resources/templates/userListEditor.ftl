@@ -4,14 +4,15 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <input type="text" name="username" placeholder="Имя пользователя" value="${user.username}"/>
         <input type="hidden" name="id" value="${user.id}"/>
+        <div>
         <#list roles as role>
-         <div>
-            <label>
-                <input type="checkbox" name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>
-                ${role}
+
+            <label> ${role}
+                <input type="radio" value="${role}" name="role" ${(user.role == role)?string("checked", "")}>
             </label>
-         </div>
+
         </#list>
+        </div>
         <button type="submit">Save</button>
     </form>
 </@p.pagestruct>

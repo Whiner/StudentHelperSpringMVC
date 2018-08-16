@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,27 +17,37 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private Boolean activity;
+    private Role role;
 
-    @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    /*@ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
     @CollectionTable(name = "usr_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+    */
 
     public Long getId() {
         return id;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
 
     public boolean isAdmin() {
-        return roles.contains(Role.ADMIN);
+        return role.equals(Role.ADMIN);
     }
 
-    public void setRoles(Set<Role> roles) {
+    /*public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
+    }*/
 
     public void setId(Long id) {
         this.id = id;
@@ -72,7 +83,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        Set<Role> objects = new HashSet<>();
+        objects.add(getRole());
+        return objects;
     }
 
     public String getPassword() {

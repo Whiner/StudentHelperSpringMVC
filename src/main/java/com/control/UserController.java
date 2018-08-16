@@ -9,13 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 @Controller
 @RequestMapping("/user")
 @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -43,8 +36,8 @@ public class UserController {
     }
 
     @GetMapping("{user}/del")
-    public String delete(@PathVariable("user") User user){
-        if(user != null && !user.getRoles().contains(Role.ADMIN)){
+    public String delete(@PathVariable("user") User user) {
+        if (user != null && !user.isAdmin()) {
             userRepository.delete(user);
         }
         return "redirect:/user";
@@ -52,21 +45,21 @@ public class UserController {
 
     @PostMapping
     public String save(
-            @RequestParam Map<String, String> form,
+            @RequestParam Role role,
             @RequestParam("id") User user,
-            @RequestParam("username") String username){
+            @RequestParam("username") String username) {
 
-        Set<String> enumRoles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
-        user.getRoles().clear();
-        for (String role: form.keySet()){
-            if(enumRoles.contains(role)){
-                user.getRoles().add(Role.valueOf(role));
-            }
+
+        if (role != null) {
+            user.setRole(role);
         }
         user.setUsername(username);
-
         userRepository.save(user);
+//        if (!user.getRole().equals(Role.ADMIN)) {
+//            return "redirect:/general";
+//        } else {
         return "redirect:/user";
+//        }
     }
 
 
