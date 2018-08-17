@@ -1,0 +1,18 @@
+.role-img {
+    width: 25px;
+    height: 25px;
+}
+
+.user-role label {
+    font-size: 14px;
+}
+
+.list-group {
+    width: 80%;
+    margin: auto;
+}
+
+.user-edit-icon {
+    width: 25px;
+    height: 25px;
+}

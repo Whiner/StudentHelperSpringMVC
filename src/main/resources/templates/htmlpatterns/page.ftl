@@ -9,6 +9,8 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <head>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://use.fontawesome.com/b4564248e6.js"></script>
     <title>
         ${title}
     </title>
@@ -29,6 +31,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
 </body>
 </html>
 </#macro>
