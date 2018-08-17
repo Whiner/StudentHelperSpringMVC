@@ -1,4 +1,4 @@
-package com.database;
+package com.database.other;
 
 public enum Status {
     DONE,

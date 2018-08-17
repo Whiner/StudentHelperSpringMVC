@@ -1,5 +1,6 @@
-package com.database;
+package com.database.entites;
 
+import com.database.other.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +19,17 @@ public class User implements UserDetails {
     private String password;
     private Boolean activity;
     private Role role;
+    private String email;
+
+    public boolean isEmailConfirmed() {
+        return emailConfirmed;
+    }
+
+    public void setEmailConfirmed(boolean emailConfirmed) {
+        this.emailConfirmed = emailConfirmed;
+    }
+
+    private boolean emailConfirmed = false;
 
     public Role getRole() {
         return role;
@@ -27,27 +39,14 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    /*@ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
-    @CollectionTable(name = "usr_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
-    */
-
     public Long getId() {
         return id;
     }
-
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
 
     public boolean isAdmin() {
         return role.equals(Role.ADMIN);
     }
 
-    /*public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }*/
 
     public void setId(Long id) {
         this.id = id;
@@ -102,6 +101,14 @@ public class User implements UserDetails {
 
     public void setActivity(Boolean activity) {
         this.activity = activity;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) { //check
+        this.email = email;
     }
 }
 

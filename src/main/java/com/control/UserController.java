@@ -1,8 +1,8 @@
 package com.control;
 
-import com.database.Role;
-import com.database.User;
-import com.database.repos.UserRepository;
+import com.Service.UserService;
+import com.database.entites.User;
+import com.database.other.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 @PreAuthorize("hasAnyAuthority('ADMIN')")
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserService service;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService service) {
+        this.service = service;
     }
+
 
     @GetMapping
     public String userList(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", service.getAllUsers());
         return "userList";
     }
 
@@ -37,9 +38,7 @@ public class UserController {
 
     @GetMapping("{user}/del")
     public String delete(@PathVariable("user") User user) {
-        if (user != null && !user.isAdmin()) {
-            userRepository.delete(user);
-        }
+        service.delete(user);
         return "redirect:/user";
     }
 
@@ -49,15 +48,10 @@ public class UserController {
             @RequestParam("id") User user,
             @RequestParam("username") String username) {
 
-
-        if (role != null) {
-            user.setRole(role);
-        }
-        user.setUsername(username);
-        userRepository.save(user);
+        service.save(user, username, role);
 //        if (!user.getRole().equals(Role.ADMIN)) {
-//            return "redirect:/general";
-//        } else {
+////            return "redirect:/general";
+////        } else {
         return "redirect:/user";
 //        }
     }

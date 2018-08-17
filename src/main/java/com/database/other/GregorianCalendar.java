@@ -1,4 +1,4 @@
-package com.database;
+package com.database.other;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

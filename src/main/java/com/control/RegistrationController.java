@@ -1,26 +1,23 @@
 package com.control;
 
-import com.database.Role;
-import com.database.User;
-import com.database.repos.UserRepository;
+import com.Service.UserService;
+import com.database.entites.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Map;
 
 @Controller
 public class RegistrationController {
 
-    private UserRepository repository;
+    private final UserService service;
 
     @Autowired
-    public RegistrationController(UserRepository repository) {
-        this.repository = repository;
+    RegistrationController(UserService service) {
+        this.service = service;
     }
-
-    RegistrationController(){}
 
 
     @GetMapping("/registration")
@@ -29,17 +26,22 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object> model){
-        User byUsername = repository.findByUsername(user.getUsername());
-        if(byUsername != null){
-            model.put("user_exist", "Sorry, but user already exist");
-            return "registration";
+    public String addUser(User user, Model model) {
+        if (service.register(user)) {
+            return "redirect:/login";
         } else {
-            user.setActivity(true);
-            user.setRole(Role.USER);
+            model.addAttribute("user_exist", "Sorry, but user already exist");
+            return "redirect:/registration";
         }
-        repository.save(user);
+    }
 
+    @GetMapping("/activate/{code}")
+    public String activate(@PathVariable String code, Model model) {
+        if (service.checkActivationCode(code)) {
+            service.activate(code);
+        } else {
+            model.addAttribute("activation_error", "Ошибка активации");
+        }
         return "redirect:/login";
     }
 

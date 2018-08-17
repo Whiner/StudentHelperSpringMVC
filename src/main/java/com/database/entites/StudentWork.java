@@ -1,4 +1,8 @@
-package com.database;
+package com.database.entites;
+
+import com.database.other.GregorianCalendar;
+import com.database.other.Status;
+import com.database.other.Type;
 
 import javax.persistence.*;
 import java.sql.Date;

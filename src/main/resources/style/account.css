@@ -8,12 +8,16 @@
     /*height: 300px;*/
 }
 
+.login-submit-button {
+    width: 150px;
+}
+
 .user-logo {
     margin-top: 100px;
 }
 
 .form-control {
-    width: 400px !important;
+    width: 350px !important;
 }
 
 .footer-lg-page {

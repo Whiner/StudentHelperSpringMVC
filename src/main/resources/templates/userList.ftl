@@ -10,16 +10,6 @@
             <div class="container-fluid row">
                 <div class="user-role col-2 text-center">
                     <@rc.chooser role_name=user.role.name()/>
-                <#--<#if user.role.name() == "ADMIN">-->
-                <#--<img class="role-img" src="../images/admin_role.png" alt="admin">-->
-                <#--<label class="mb-0">Admin</label>-->
-                <#--<#elseif user.role.name() == "MODERATOR">-->
-                <#--<img class="role-img" src="../images/moder_role.png" alt="moder">-->
-                <#--<label class="mb-0">Moderator</label>-->
-                <#--<#elseif user.role.name() == "USER">-->
-                <#--<img class="role-img" src="../images/user_role.png" alt="user">-->
-                <#--<label class="mb-0">User</label>-->
-                <#--</#if>-->
                 </div>
             <#--<div>email</div>-->
                 <div class="col-8">

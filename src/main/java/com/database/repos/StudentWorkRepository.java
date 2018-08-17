@@ -1,6 +1,6 @@
 package com.database.repos;
 
-import com.database.StudentWork;
+import com.database.entites.StudentWork;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
