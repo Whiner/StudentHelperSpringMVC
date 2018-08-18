@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
-@PreAuthorize("hasAnyAuthority('ADMIN')")
+@PreAuthorize("hasAnyAuthority('ADMIN','MODERATOR')")
 public class UserController {
     private final UserService service;
 
@@ -22,10 +22,14 @@ public class UserController {
 
 
     @GetMapping
-    public String userList(Model model) {
-        model.addAttribute("users", service.getAllUsers());
+    public String userList(@RequestParam(required = false) String search,
+                           Model model) {
+        Iterable<User> users = service.searchUserByUsername(search);
+        model.addAttribute("users", service.sortByAuthority(users));
+
         return "userList";
     }
+
 
     @GetMapping("{user}")
     public String userList(
@@ -37,6 +41,7 @@ public class UserController {
     }
 
     @GetMapping("{user}/del")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String delete(@PathVariable("user") User user) {
         service.delete(user);
         return "redirect:/user";

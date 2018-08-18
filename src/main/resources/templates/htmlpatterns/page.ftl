@@ -19,6 +19,18 @@
 <div class="bg">
     <#include "navbar.ftl"/>
     <div class="container-fluid">
+        <div class="row">
+    <#if error_message??>
+        <div class="error_message message">
+            <span>${error_message}</span>
+        </div>
+    </#if>
+    <#if success_message??>
+        <div class="success_message message">
+            <span>${success_message}</span>
+        </div>
+    </#if>
+        </div>
     <#nested>
     </div>
 </div>

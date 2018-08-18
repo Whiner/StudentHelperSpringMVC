@@ -13,6 +13,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -33,6 +38,14 @@ public class UserService implements UserDetailsService {
 
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public Iterable<User> sortByAuthority(Iterable<User> users) {
+        Iterator<User> iterator = users.iterator();
+        List<User> list = new ArrayList<>();
+        iterator.forEachRemaining(list::add);
+        list.sort(Comparator.reverseOrder());
+        return list;
     }
 
     public boolean delete(User user) {
@@ -98,5 +111,18 @@ public class UserService implements UserDetailsService {
             }
         }
         return false;
+    }
+
+    public Iterable<User> searchUserByUsername(String search) {
+        if (search != null && !search.isEmpty()) {
+            ArrayList<User> users = new ArrayList<>();
+            User byUsername = userRepository.findByUsername(search);
+            if (byUsername != null) {
+                users.add(byUsername);
+            }
+            return users;
+        } else {
+            return getAllUsers();
+        }
     }
 }

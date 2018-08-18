@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,7 +26,9 @@ public class GeneralService {
 
     public Iterable<StudentWork> filter(String filter) {
         if (filter != null && !filter.isEmpty()) {
-            return repository.findByDiscipline(filter);
+            List<StudentWork> byDiscipline = repository.findByDiscipline(filter);
+            System.out.println(byDiscipline);
+            return byDiscipline;
         } else {
             return getAllStudentWorks();
         }

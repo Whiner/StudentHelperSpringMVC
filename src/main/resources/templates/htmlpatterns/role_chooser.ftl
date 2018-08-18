@@ -8,5 +8,8 @@
     <#elseif role_name == "USER">
         <img class="role-img" src="../images/user_role.png" alt="user">
         <span class="mb-0">User</span>
+    <#elseif role_name == "GUEST">
+        <img class="role-img" src="../images/guest_role.png" alt="guest">
+        <span class="mb-0">Guest</span>
     </#if>
 </#macro>

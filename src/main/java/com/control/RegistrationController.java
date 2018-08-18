@@ -28,21 +28,22 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(User user, Model model) {
         if (service.register(user)) {
+            model.addAttribute("success_message", "Регистрация прошла успешно");
             return "redirect:/login";
         } else {
-            model.addAttribute("user_exist", "Sorry, but user already exist");
+            model.addAttribute("error_message", "Пользователь уже существует");
             return "redirect:/registration";
         }
     }
 
     @GetMapping("/activate/{code}")
     public String activate(@PathVariable String code, Model model) {
-        if (service.checkActivationCode(code)) {
-            System.out.println(service.activate(code));
+        if (service.checkActivationCode(code) && service.activate(code)) {
+            model.addAttribute("success_message", "Пользователь успешно активирован");
         } else {
-            model.addAttribute("activation_error", "Ошибка активации");
+            model.addAttribute("error_message", "Ошибка активации");
         }
-        return "redirect:/login";
+        return "login";
     }
 
 }

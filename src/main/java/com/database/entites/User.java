@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usr")
-public class User implements UserDetails {
+public class User implements UserDetails, Comparable<User> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -120,6 +120,12 @@ public class User implements UserDetails {
 
     public void setEmail(String email) { //check
         this.email = email;
+    }
+
+
+    @Override
+    public int compareTo(User o) {
+        return this.role.compareTo(o.getRole());
     }
 }
 
