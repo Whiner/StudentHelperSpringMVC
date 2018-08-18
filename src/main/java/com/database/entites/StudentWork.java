@@ -10,6 +10,7 @@ import java.sql.Date;
 @Entity
 public class StudentWork {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 

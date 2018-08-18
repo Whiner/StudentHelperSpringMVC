@@ -21,6 +21,17 @@ public class User implements UserDetails {
     private Role role;
     private String email;
 
+    @OneToOne(mappedBy = "user")
+    private ActivationCode activationCode;
+
+    public ActivationCode getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(ActivationCode activationCode) {
+        this.activationCode = activationCode;
+    }
+
     public boolean isEmailConfirmed() {
         return emailConfirmed;
     }

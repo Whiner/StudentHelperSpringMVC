@@ -38,7 +38,7 @@ public class RegistrationController {
     @GetMapping("/activate/{code}")
     public String activate(@PathVariable String code, Model model) {
         if (service.checkActivationCode(code)) {
-            service.activate(code);
+            System.out.println(service.activate(code));
         } else {
             model.addAttribute("activation_error", "Ошибка активации");
         }

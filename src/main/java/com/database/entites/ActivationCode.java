@@ -6,12 +6,14 @@ import java.util.UUID;
 @Entity
 @Table(name = "activation_codes")
 public class ActivationCode { // первичный ключ не пашет как надо
+
     @Id
-    @GeneratedValue
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(unique = true)
