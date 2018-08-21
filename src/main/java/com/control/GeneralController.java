@@ -35,7 +35,7 @@ public class GeneralController {
             @RequestParam String theme,
             Model model) {
         service.add(user, discipline, type, date, number, status, theme);
-        model.addAttribute("studentWorks", service.getAllStudentWorks());
+        model.addAttribute("studentWorks", service.getStudentsWorksByCurrentUser());
         return "general";
     }
 

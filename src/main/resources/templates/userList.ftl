@@ -4,7 +4,7 @@
 
 <#--<td>${user.activity?string("active", "diactive")}</td>-->
 <div class="row">
-    <form class="form-inline mt-4 ml-3 justify-content-end" method="get" action="/user">
+    <form class="form-inline mt-4 justify-content-end ml-5" method="get" action="/user">
         <div class="form-group">
             <input class="form-control" type="text" placeholder="Поиск" name="search">
             <button class="btn btn-primary ml-2" type="submit">Поиск</button>

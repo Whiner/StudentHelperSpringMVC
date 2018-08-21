@@ -21,11 +21,24 @@ public class StudentWork {
     private Date deliveryDate;
     private Status status;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "info_id")
+    private StudentWorkInfo info;
+
     @ManyToOne(fetch = FetchType.EAGER)
+    // переделать под one to many у user и сделать каскадное удаление + не удаляется если не активирован
     @JoinColumn(name = "user_id")
     private User owner;
 
     public StudentWork(){}
+
+    public StudentWorkInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(StudentWorkInfo info) {
+        this.info = info;
+    }
 
     public StudentWork(Type type, GregorianCalendar deliveryDate, String discipline, Integer number, String theme, Status status, User owner) {
         this.type = type;

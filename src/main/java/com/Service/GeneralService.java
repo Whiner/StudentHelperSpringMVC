@@ -12,25 +12,24 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class GeneralService {
     private final StudentWorkRepository repository;
+    private final UserService userService;
 
     @Autowired
-    public GeneralService(StudentWorkRepository repository) {
+    public GeneralService(StudentWorkRepository repository, UserService userService) {
         this.repository = repository;
+        this.userService = userService;
     }
 
     public Iterable<StudentWork> filter(String filter) {
         if (filter != null && !filter.isEmpty()) {
-            List<StudentWork> byDiscipline = repository.findByDiscipline(filter);
-            System.out.println(byDiscipline);
-            return byDiscipline;
+            return repository.findByDiscipline(filter);
         } else {
-            return getAllStudentWorks();
+            return getStudentsWorksByCurrentUser();
         }
     }
 
@@ -74,5 +73,13 @@ public class GeneralService {
 
     public Iterable<StudentWork> getAllStudentWorks() {
         return repository.findAll();
+    }
+
+    public Iterable<StudentWork> getStudentWorksByOwner(User user) {
+        return repository.findByOwner(user);
+    }
+
+    public Iterable<StudentWork> getStudentsWorksByCurrentUser() {
+        return getStudentWorksByOwner(userService.getCurrentUser());
     }
 }

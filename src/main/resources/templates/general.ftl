@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-8">
-        <button class="btn btn-primary m-4" type="button" data-toggle="collapse" data-target="#collapsedMenu"
+        <button class="btn btn-primary m-4" type="button" data-toggle="collapse" data-target="#collapsedAddMenu"
                 aria-expanded="false" aria-controls="collapseExample">
             +
         </button>
@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="collapse mt-1 mx-1" id="collapsedMenu">
+    <div class="collapse mt-1 mx-1" id="collapsedAddMenu">
         <div class="card card-body">
             <form method="post" action="general/add">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
@@ -92,7 +92,7 @@
 
 
 <div class="row mx-3">
-    <div class="card-columns mt-4">
+    <div class="card-columns mt-4 w-100">
         <#list studentWorks as sw>
             <#if sw.type == "LABORATORY">
                 <#assign

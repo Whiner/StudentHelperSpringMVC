@@ -26,7 +26,6 @@ public class UserController {
                            Model model) {
         Iterable<User> users = service.searchUserByUsername(search);
         model.addAttribute("users", service.sortByAuthority(users));
-
         return "userList";
     }
 
