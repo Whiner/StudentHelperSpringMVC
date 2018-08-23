@@ -87,7 +87,7 @@ public class UserService implements UserDetailsService {
             return false;
         } else {
             user.setActivity(true);
-            user.setRole(Role.USER);
+            user.setRole(Role.GUEST);
         }
         ActivationCode activationCode = new ActivationCode();
         activationCode.setUser(user);
@@ -108,6 +108,7 @@ public class UserService implements UserDetailsService {
             activationCodeRepository.delete(byCode);
             if (byCode.getUser() != null) {
                 byCode.getUser().setEmailConfirmed(true);
+                byCode.getUser().setRole(Role.USER);
                 userRepository.save(byCode.getUser());
                 return true;
             }

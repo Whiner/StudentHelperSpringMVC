@@ -3,13 +3,23 @@
 }
 
 .del-button {
+    padding: 0 !important;
     width: 15px;
     height: 15px;
 }
 
-.w-93 {
-    width: 93% !important;
+.va-top {
+    vertical-align: top !important;
 }
+
+.w-84 {
+    width: 84% !important;
+}
+
+.w-7 {
+    width: 7% !important;
+}
+
 
 @media (min-width: 34em) {
     .card-columns {

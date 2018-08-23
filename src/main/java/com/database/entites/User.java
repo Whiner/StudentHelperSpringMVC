@@ -21,7 +21,7 @@ public class User implements UserDetails, Comparable<User> {
     private Role role;
     private String email;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private ActivationCode activationCode;
 
     public ActivationCode getActivationCode() {

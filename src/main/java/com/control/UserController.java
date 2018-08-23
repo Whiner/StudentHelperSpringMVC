@@ -51,13 +51,8 @@ public class UserController {
             @RequestParam Role role,
             @RequestParam("id") User user,
             @RequestParam("username") String username) {
-
         service.save(user, username, role);
-//        if (!user.getRole().equals(Role.ADMIN)) {
-////            return "redirect:/general";
-////        } else {
         return "redirect:/user";
-//        }
     }
 
 

@@ -5,7 +5,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "activation_codes")
-public class ActivationCode { // первичный ключ не пашет как надо
+public class ActivationCode {
 
     @Id
     @Column(name = "id")

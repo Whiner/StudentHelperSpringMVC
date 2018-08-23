@@ -26,15 +26,16 @@ public class StudentWork {
     private StudentWorkInfo info;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    // переделать под one to many у user и сделать каскадное удаление + не удаляется если не активирован
     @JoinColumn(name = "user_id")
     private User owner;
 
     public StudentWork(){}
 
+
     public StudentWorkInfo getInfo() {
         return info;
     }
+
 
     public void setInfo(StudentWorkInfo info) {
         this.info = info;

@@ -1,11 +1,11 @@
 <#import "htmlpatterns/page.ftl" as p>
 <@p.pagestruct title="sHelper main" css="general.css">
 
-
+<#--кнопка добавления-->
 <div class="row">
     <div class="col-8">
         <button class="btn btn-primary m-4" type="button" data-toggle="collapse" data-target="#collapsedAddMenu"
-                aria-expanded="false" aria-controls="collapseExample">
+                aria-expanded="false" aria-controls="collapsedAddMenu">
             +
         </button>
     </div>
@@ -18,6 +18,8 @@
         </form>
     </div>
 </div>
+
+<#--добавление-->
 <div class="row">
     <div class="collapse mt-1 mx-1" id="collapsedAddMenu">
         <div class="card card-body">
@@ -28,7 +30,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="w-100">Дисциплина
-                                    <input class="form-control w-100" type="text" name="discipline"/>
+                                    <input class="form-control w-100" type="text" name="discipline" required/>
                                 </label>
                             </div>
                         </div>
@@ -42,7 +44,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="mb-0 w-100">Статус выполнения
-                                    <select class="form-control" name="status">
+                                    <select class="form-control" name="status" required>
                                         <option>Готова</option>
                                         <option>В процессе</option>
                                         <option>Не начата</option>
@@ -91,6 +93,80 @@
 </div>
 
 
+
+
+<#--инфа о работе-->
+<div class="row">
+    <div class="collapse mt-1 mx-1 <#if info??>show</#if>" id="collapsedInfoMenu">
+        <div class="card card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-2">
+                        <button class="btn btn-sm bnt-primary">Открыть методу</button>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-sm btn-success">Добавить методу</button>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-sm btn-danger">Удалить методу</button>
+                    </div>
+                    <div class="col-5">
+
+                    </div>
+                    <div class="col-1">
+                        <div class="del-button">
+                            <a href="/general">
+                                <img src="../images/delete.png" class="w-100" alt="close">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                <#if info?? && info.info??>
+                    <#list info.info.notes as note>
+                    <div class="col-8">
+                        <div>
+                            ${note.note}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            <span>${note.date}</span>
+                        </div>
+                    </div>
+                    </#list>
+                <#else>
+                <div class="col-12">
+                    <span>Пустовато как то</span>
+                </div>
+                </#if>
+                </div>
+                <div class="row">
+                <#if info??>
+                    <form class="form-inline" action="/general/add-note" method="post">
+                        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                        <input type="hidden" name="studentWorkId" value="${info.id}">
+                        <div class="col-9">
+                            <input class="form-control" type="text" name="note" placeholder="Заметка"/>
+                        </div>
+                        <div class="col-3">
+                            <button class="btn btn-sm btn-primary" type="submit">Добавить</button>
+                        </div>
+                    </form>
+                </#if>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<#--тупа форма атдихает-->
+<form action="/general" method="get" id="submit_id" hidden>
+    <input id="field_id" type="hidden" name="workId">
+</form>
+
+
+<#--карточки-->
 <div class="row mx-3">
     <div class="card-columns mt-4 w-100">
         <#list studentWorks as sw>
@@ -138,12 +214,22 @@
                 />
             </#if>
 
-        <#--<input type="hidden" name="id" value="${sw.id}">-->
-            <div class="card ${textColor} ${cardColor} mb-4">
+        <#--onclick="document.location='/general/show_info/${sw.id}'"-->
+            <div class="card ${textColor} ${cardColor} mb-4"
+                 onclick="document.getElementById('field_id').value = ${sw.id}
+                         document.forms['submit_id'].submit()">
+
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item w-93">
+                        <li class="nav-item ml-2 w-84">
                             ${header}
+                        </li>
+                        <li class="nav-item w-7">
+                            <button class="del-button btn" type="button" data-toggle="collapse"
+                                    data-target="#collapsedInfoMenu"
+                                    aria-expanded="false" aria-controls="collapsedInfoMenu">
+                                <img class="w-100 va-top" src="../images/info.png" alt="Info">
+                            </button>
                         </li>
                         <li class="nav-item">
                             <div class="del-button">
@@ -151,8 +237,8 @@
                                     <img class="w-100" src="../images/delete.png" alt="Del">
                                 </a>
                             </div>
-
                         </li>
+
                     </ul>
                 </div>
 
@@ -171,6 +257,7 @@
                     </p>
                 </div>
             </div>
+
         <#else>
             <b>Список пуст</b>
         </#list>

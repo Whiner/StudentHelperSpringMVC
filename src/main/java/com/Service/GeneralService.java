@@ -1,6 +1,8 @@
 package com.Service;
 
 import com.database.entites.StudentWork;
+import com.database.entites.StudentWorkInfo;
+import com.database.entites.StudentWorkNote;
 import com.database.entites.User;
 import com.database.other.GregorianCalendar;
 import com.database.other.Status;
@@ -8,6 +10,7 @@ import com.database.other.Type;
 import com.database.repos.StudentWorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,5 +84,31 @@ public class GeneralService {
 
     public Iterable<StudentWork> getStudentsWorksByCurrentUser() {
         return getStudentWorksByOwner(userService.getCurrentUser());
+    }
+
+    public Optional<StudentWork> getStudentWorkByID(Long id) {
+
+        return repository.findById(id);
+    }
+
+    public void addNoteForCurrentUser(Long studentWorkId, String note) {
+        if (studentWorkId != null && !StringUtils.isEmpty(note)) {
+            Optional<StudentWork> byId = repository.findById(studentWorkId);
+            if (byId.isPresent()) {
+                StudentWork studentWork = byId.get();
+                StudentWorkInfo studentWorkInfo = studentWork.getInfo();
+                if (studentWorkInfo == null) {
+                    studentWorkInfo = new StudentWorkInfo();
+                }
+                StudentWorkNote workNote = new StudentWorkNote();
+                workNote.setNote(note);
+                workNote.setDate(new GregorianCalendar());
+                workNote.setInfo(studentWorkInfo);
+                studentWorkInfo.getNotes().add(workNote);
+                studentWork.setInfo(studentWorkInfo);
+                repository.save(studentWork);
+            }
+        }
+
     }
 }

@@ -3,6 +3,7 @@ package com.database.entites;
 import com.database.other.GregorianCalendar;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity(name = "notes")
 public class StudentWorkNote {
@@ -10,7 +11,7 @@ public class StudentWorkNote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    private GregorianCalendar date;
+    private Date date;
     private String note;
 
     @ManyToOne
@@ -31,11 +32,11 @@ public class StudentWorkNote {
     }
 
     public GregorianCalendar getDate() {
-        return date;
+        return new GregorianCalendar(date.getTime());
     }
 
     public void setDate(GregorianCalendar date) {
-        this.date = date;
+        this.date = new Date(date.getTime().getTime());
     }
 
     public String getNote() {
