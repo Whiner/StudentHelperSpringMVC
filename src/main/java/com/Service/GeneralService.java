@@ -11,6 +11,8 @@ import com.database.repos.StudentWorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -91,7 +93,7 @@ public class GeneralService {
         return repository.findById(id);
     }
 
-    public void addNoteForCurrentUser(Long studentWorkId, String note) {
+    public void addNote(Long studentWorkId, String note) {
         if (studentWorkId != null && !StringUtils.isEmpty(note)) {
             Optional<StudentWork> byId = repository.findById(studentWorkId);
             if (byId.isPresent()) {
@@ -102,7 +104,8 @@ public class GeneralService {
                 }
                 StudentWorkNote workNote = new StudentWorkNote();
                 workNote.setNote(note);
-                workNote.setDate(new GregorianCalendar());
+                GregorianCalendar gregorianCalendar = new GregorianCalendar();
+                workNote.setDate(gregorianCalendar);
                 workNote.setInfo(studentWorkInfo);
                 studentWorkInfo.getNotes().add(workNote);
                 studentWork.setInfo(studentWorkInfo);
@@ -111,4 +114,10 @@ public class GeneralService {
         }
 
     }
+
+    public String getCurrentURI() {
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        return servletRequestAttributes.getRequest().getRequestURI();
+    }
+
 }

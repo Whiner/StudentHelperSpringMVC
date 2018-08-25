@@ -3,14 +3,15 @@ package com.database.entites;
 import com.database.other.GregorianCalendar;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity(name = "notes")
-public class StudentWorkNote {
+public class StudentWorkNote implements Comparable<StudentWorkNote> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
     private Date date;
     private String note;
 
@@ -45,5 +46,10 @@ public class StudentWorkNote {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public int compareTo(StudentWorkNote o) {
+        return this.date.compareTo(o.date);
     }
 }

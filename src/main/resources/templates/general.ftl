@@ -97,7 +97,7 @@
 
 <#--инфа о работе-->
 <div class="row">
-    <div class="collapse mt-1 mx-1 <#if info??>show</#if>" id="collapsedInfoMenu">
+    <div class="collapse mt-1 mx-1 <#if work??>show</#if>" id="collapsedInfoMenu">
         <div class="card card-body">
             <div class="container-fluid">
                 <div class="row">
@@ -114,43 +114,47 @@
 
                     </div>
                     <div class="col-1">
-                        <div class="del-button">
+                        <div class="del-button mx-auto">
                             <a href="/general">
                                 <img src="../images/delete.png" class="w-100" alt="close">
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                <#if info?? && info.info??>
-                    <#list info.info.notes as note>
-                    <div class="col-8">
-                        <div>
-                            ${note.note}
-                        </div>
+                <div class="row my-4">
+                    <div class="container-fluid notes mx-3 p-2">
+                        <#if work?? && work.info??>
+                            <#list work.info.notes as note>
+                                <div class="row mb-1">
+                                    <div class="col-8">
+                                        <div>
+                                            + ${note.note}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div>
+                                            <span>${note.date}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </#list>
+                        <#else>
+                            <div class="col-12">
+                                <span>Пустовато как то</span>
+                            </div>
+                        </#if>
                     </div>
-                    <div class="col-4">
-                        <div>
-                            <span>${note.date}</span>
-                        </div>
-                    </div>
-                    </#list>
-                <#else>
-                <div class="col-12">
-                    <span>Пустовато как то</span>
-                </div>
-                </#if>
                 </div>
                 <div class="row">
-                <#if info??>
-                    <form class="form-inline" action="/general/add-note" method="post">
+                <#if work??>
+                    <form class="form-inline w-100" action="/general/add-note" method="post">
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                        <input type="hidden" name="studentWorkId" value="${info.id}">
-                        <div class="col-9">
-                            <input class="form-control" type="text" name="note" placeholder="Заметка"/>
+                        <input type="hidden" name="studentWorkId" value="${work.id}">
+                        <div class="col-11">
+                            <input class="form-control w-100" type="text" name="note" placeholder="Заметка"/>
                         </div>
-                        <div class="col-3">
-                            <button class="btn btn-sm btn-primary" type="submit">Добавить</button>
+                        <div class="col-1">
+                            <button class="btn btn-sm btn-primary w-100" type="submit">Добавить</button>
                         </div>
                     </form>
                 </#if>

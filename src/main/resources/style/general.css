@@ -20,6 +20,10 @@
     width: 7% !important;
 }
 
+.notes {
+    border: 1px solid #d8d8d8;
+    border-radius: 15px 0 0 0;
+}
 
 @media (min-width: 34em) {
     .card-columns {

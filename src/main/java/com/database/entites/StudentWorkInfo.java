@@ -1,8 +1,7 @@
 package com.database.entites;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "info")
 public class StudentWorkInfo {
@@ -14,6 +13,7 @@ public class StudentWorkInfo {
     private String manualPath;
 
     @OneToMany(mappedBy = "info", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("date DESC")
     private Set<StudentWorkNote> notes = new HashSet<>();
 
     @OneToOne(mappedBy = "info")
@@ -49,5 +49,11 @@ public class StudentWorkInfo {
 
     public void setNotes(Set<StudentWorkNote> notes) {
         this.notes = notes;
+    }
+
+    public Set<StudentWorkNote> sortByDate() {
+        List<StudentWorkNote> list = new ArrayList<>(this.notes);
+        Collections.sort(list);
+        return new HashSet<>(list);
     }
 }

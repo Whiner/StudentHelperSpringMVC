@@ -26,11 +26,11 @@ public class GeneralController {
             @RequestParam(required = false) String filter,
             @RequestParam(required = false) Long workId,
             Model model) {
-        model.addAttribute("studentWorks", service.filter(filter));
         if (workId != null) {
             Optional<StudentWork> byID = service.getStudentWorkByID(workId);
-            byID.ifPresent(studentWork -> model.addAttribute("info", studentWork));
+            byID.ifPresent(studentWork -> model.addAttribute("work", studentWork));
         }
+        model.addAttribute("studentWorks", service.filter(filter));
         return "general";
     }
 
@@ -59,8 +59,8 @@ public class GeneralController {
     public String addNote(
             @RequestParam Long studentWorkId,
             @RequestParam String note) {
-        service.addNoteForCurrentUser(studentWorkId, note);
-        return "redirect:/general";
+        service.addNote(studentWorkId, note);
+        return "redirect:/general?workId=" + studentWorkId;
     }
 
 
